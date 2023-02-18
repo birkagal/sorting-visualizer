@@ -31,9 +31,7 @@ export const animateSort = async (
                 [barOneIdx, barOneNewHeight, barTwoIdx, barTwoNewHeight] = animations[i];
                 barOne = arrayBars[barOneIdx];
                 barTwo = arrayBars[barTwoIdx];
-                let tmp = barOne.innerHTML;
-                barOne.innerHTML = barTwo.innerHTML;
-                barTwo.innerHTML = tmp;
+                [barOne.innerHTML, barTwo.innerHTML] = [barTwo.innerHTML, barOne.innerHTML]
                 barOne.style.height = `${barOneNewHeight}px`;
                 barTwo.style.height = `${barTwoNewHeight}px`;
                 barOne.style.backgroundColor = 'green';
@@ -48,6 +46,7 @@ export const animateSort = async (
                 barOne = arrayBars[barOneIdx];
                 barOne.style.height = `${barOneNewHeight}px`;
                 barOne.style.backgroundColor = 'green';
+                barOne.innerHTML = barOneNewHeight
                 await sleep(speed);
                 barOne.style.backgroundColor = config.primary_color;
                 break;

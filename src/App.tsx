@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ArrayBar, ArrayContainer, AppDiv } from './styles/styled';
 import { config } from './config';
 import Menu from './components/Menu';
