@@ -6,7 +6,6 @@ export const animateSort = async (
     array: Array<number>,
     algorithm: string,
     speed: number,
-    setIsSortingRunnable: React.Dispatch<React.SetStateAction<boolean>>,
 ) => {
     let algo = algoMap[algorithm];
     const animations = algo(array);
@@ -52,17 +51,13 @@ export const animateSort = async (
                 break;
         }
     }
-    setIsSortingRunnable(true);
 }
 
-export const generateArray = (length) => {
-    const array: Array<number> = [];
-    for (let i = 1; i < length; i++) {
-        array.push(randomIntFromInterval(5, 730));
-    }
-    let randomIdx = Math.floor(Math.random() * array.length)
-    array[randomIdx] = 730;
-    return array;
+export const generateArray = (length: number, max_value: number) => {
+    let n = Math.floor(max_value / length);
+    const array = Array.from({ length: length }, (_, index) => (n * index) + 25);
+    const shuffledArray = array.sort(() => Math.random() - 0.5);
+    return shuffledArray
 }
 
 // https://stackoverflow.com/a/7228322
@@ -71,3 +66,8 @@ const randomIntFromInterval = (min: number, max: number) => {
 }
 // https://stackoverflow.com/a/39914235
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+
+
+export const normalize = (val, minVal, maxVal, newMin, newMax) => {
+    return Math.floor(newMin + (val - minVal) * (newMax - newMin) / (maxVal - minVal));
+};

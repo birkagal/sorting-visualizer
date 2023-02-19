@@ -8,6 +8,9 @@ import { FaGithub } from 'react-icons/fa';
 import { generateArray, animateSort } from '../utils';
 import { consts } from '../consts';
 import logo from '../assets/logo_32.png';
+import useWindowDimensions from '../hooks/useWindowDimensions';
+import { normalize } from '../utils';
+
 
 interface IProps {
     array: Array<number>;
@@ -15,38 +18,35 @@ interface IProps {
 }
 
 const Menu = (props: IProps) => {
-    const [algorithm, setAlgorithm] = useState('');
-    const [isSortingRunnable, setIsSortingRunnable] = useState(false);
+    const [algorithm, setAlgorithm] = useState(consts.MERGE_SORT);
     const [isSortingRunning, setIsSortingRunning] = useState(false);
     const [sizeInput, setSizeInput] = useState(50);
+    const [expanded, setExpanded] = useState(false);
+    const { height, width } = useWindowDimensions();
+
 
     useEffect(() => refreshArray(), [sizeInput])
 
     const refreshArray = () => {
-        let length = Math.floor((sizeInput + 3) * 1.65)
-        const array = generateArray(length);
+        let max_value = height * 0.8;
+        let length = normalize(sizeInput, 1, 101, 6, Math.floor(width * 0.7 / 6));
+        const array = generateArray(length, max_value);
         props.setArray(array);
     }
 
     const handleSortClick = async () => {
-        setIsSortingRunnable(false);
+        if (expanded) setExpanded(false);
         setIsSortingRunning(true);
-        let length = Math.floor((sizeInput + 3) * 1.65)
-        console.log(Math.pow(length, 2));
+        let length = props.array.length
         const speed = 1000 - Math.pow(length, 2) > 0 ?
             1000 - Math.pow(length, 2) : 8;
-        await animateSort(props.array, algorithm, speed, setIsSortingRunnable)
+        await animateSort(props.array, algorithm, speed)
         setIsSortingRunning(false);
 
     }
 
-    const handleAlgorithmClick = (algorithm: string) => {
-        if (algorithm === '') setIsSortingRunnable(false);
-        else if (isSortingRunnable === false) setIsSortingRunnable(true);
-        setAlgorithm(algorithm)
-    }
     return (
-        <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+        <Navbar expanded={expanded} collapseOnSelect expand="lg" bg="dark" variant="dark">
             <Container>
                 <Navbar.Brand href="/#">
                     <img
@@ -58,9 +58,9 @@ const Menu = (props: IProps) => {
                     />
                     {' Sorting Visualizer'}
                 </Navbar.Brand>
-                <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-                <Navbar.Collapse id="responsive-navbar-nav">
-                    <Nav className="me-auto" style={{ width: '70%' }} >
+                <Navbar.Toggle onClick={() => setExpanded(!expanded)} aria-controls="responsive-navbar-nav" />
+                <Navbar.Collapse id="responsive-navbar-nav" >
+                    <Nav style={{ display: "flex", flexDirection: "row" }} >
                         <Button
                             className='ms-3'
                             disabled={isSortingRunning}
@@ -70,10 +70,10 @@ const Menu = (props: IProps) => {
                         </Button>
                         <Form.Select
                             className='mx-3'
+                            style={{ width: '10rem' }}
                             disabled={isSortingRunning}
                             value={algorithm}
-                            onChange={(e) => handleAlgorithmClick(e.target.value)}>
-                            <option value=''>{'Select Algorithm...'}</option>
+                            onChange={(e) => setAlgorithm(e.target.value)}>
                             <option value={consts.MERGE_SORT}>{'Merge Sort'}</option>
                             <option value={consts.BUBBLE_SORT}>{'Bubble Sort'}</option>
                             <option value={consts.QUICK_SORT}>{'Quick Sort'}</option>
@@ -83,12 +83,13 @@ const Menu = (props: IProps) => {
                             style={{ width: '100%' }}
                             className='px-3'
                             variant="outline-primary"
-                            disabled={!isSortingRunnable}
+                            disabled={isSortingRunning}
                             onClick={handleSortClick}>
-                            {isSortingRunning ? 'Sorting...'
-                                : algorithm === '' ? 'Choose an algorithm' : 'Sort!'
-                            }
+                            {isSortingRunning ? 'Sorting...' : 'Sort!'}
                         </Button>
+
+                    </Nav>
+                    <Nav className="me-auto" style={{ height: '3rem', display: "flex", flexDirection: "row", justifyContent: 'center' }}>
                         <Form.Range
                             className='mx-3 h-auto'
                             disabled={isSortingRunning}
@@ -98,7 +99,7 @@ const Menu = (props: IProps) => {
                             value={sizeInput}
                             onChange={(e) => setSizeInput(Number(e.target.value))} />
                     </Nav>
-                    <Nav>
+                    <Nav style={{ display: "flex", flexDirection: "row", justifyContent: 'center' }}>
                         <FaGithub className='h-auto text-white' />
                         <Nav.Link href="https://github.com/birkagal/sorting-visualizer" target="_blank">
                             {'Source on Github'}

@@ -4,7 +4,6 @@ export const ArrayContainer = styled.div`
     margin: 0;
 `
 export const ArrayBar = styled.div`
-    width: 4px;
     margin: 0 1px;
     margin-top: 10px;
     font-family: sans-serif;

@@ -4,19 +4,19 @@ import { config } from './config';
 import Menu from './components/Menu';
 import Footer from './components/Footer';
 import useWindowDimensions from './hooks/useWindowDimensions';
+import { normalize } from './utils';
 
 const App = () => {
   const [array, setArray] = useState<Array<number>>([]);
   const [barWidth, setBarWidth] = useState(0);
   const [barFontSize, setBarFontSize] = useState(0);
-  const { height, width } = useWindowDimensions();
+  const { width } = useWindowDimensions();
 
-  console.log(barFontSize);
   useEffect(() => {
-    let updatedBarWidth = Math.floor(width / (array.length * 1.5));
+    let updatedBarWidth = Math.floor(width * 0.7 / array.length) - 2;
     setBarWidth(updatedBarWidth);
     if (updatedBarWidth > 20) {
-      let newFontSize = normalizeBetweenTwoRanges(updatedBarWidth, 20, 230, 10, 24);
+      let newFontSize = normalize(updatedBarWidth, 20, 230, 10, 24);
       setBarFontSize(newFontSize);
     }
   }, [array]);
@@ -44,9 +44,5 @@ const App = () => {
     </AppDiv >
   );
 }
-
-const normalizeBetweenTwoRanges = (val, minVal, maxVal, newMin, newMax) => {
-  return Math.floor(newMin + (val - minVal) * (newMax - newMin) / (maxVal - minVal));
-};
 
 export default App;
