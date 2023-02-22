@@ -1,4 +1,4 @@
-import { CHANGE_COLOR, OVERWRITE_VALUE } from "../consts";
+import { animation_operations } from "../consts";
 
 export const mergeSort = (
     array: Array<number>
@@ -38,35 +38,35 @@ const merge = (
     while (i <= middle && j <= end) {
         // These are the values that we're comparing; we push them a second
         // time to revert their color.
-        animations.push([CHANGE_COLOR, i, j]);
+        animations.push([animation_operations.CHANGE_COLOR, i, j]);
         if (auxiliary[i] <= auxiliary[j]) {
             // We overwrite the value at index k in the original array with the
             // value at index i in the auxiliary array.
-            animations.push([OVERWRITE_VALUE, k, auxiliary[i]]);
+            animations.push([animation_operations.OVERWRITE_VALUE, k, auxiliary[i]]);
             array[k++] = auxiliary[i++];
         } else {
             // We overwrite the value at index k in the original array with the
             // value at index j in the auxiliary array.
-            animations.push([OVERWRITE_VALUE, k, auxiliary[j]]);
+            animations.push([animation_operations.OVERWRITE_VALUE, k, auxiliary[j]]);
             array[k++] = auxiliary[j++];
         }
     }
     while (i <= middle) {
         // These are the values that we're comparing; we push them once
         // to change their color.
-        animations.push([CHANGE_COLOR, i, i]);
+        animations.push([animation_operations.CHANGE_COLOR, i, i]);
         // We overwrite the value at index k in the original array with the
         // value at index i in the auxiliary array.
-        animations.push([OVERWRITE_VALUE, k, auxiliary[i]]);
+        animations.push([animation_operations.OVERWRITE_VALUE, k, auxiliary[i]]);
         array[k++] = auxiliary[i++];
     }
     while (j <= end) {
         // These are the values that we're comparing; we push them once
         // to change their color.
-        animations.push([CHANGE_COLOR, j, j]);
+        animations.push([animation_operations.CHANGE_COLOR, j, j]);
         // We overwrite the value at index k in the original array with the
         // value at index j in the auxiliary array.
-        animations.push([OVERWRITE_VALUE, k, auxiliary[j]]);
+        animations.push([animation_operations.OVERWRITE_VALUE, k, auxiliary[j]]);
         array[k++] = auxiliary[j++];
     }
 }

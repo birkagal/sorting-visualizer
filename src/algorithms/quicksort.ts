@@ -1,4 +1,4 @@
-import { SWAP_VALUE, CHANGE_COLOR } from "../consts";
+import { animation_operations } from "../consts";
 
 export const quickSort = (
     array: Array<number>
@@ -18,21 +18,21 @@ export const quicksortHelper = (
     let pivot = start,
         left = start + 1,
         right = end;
-    animations.push([CHANGE_COLOR, left, right]);
+    animations.push([animation_operations.CHANGE_COLOR, left, right]);
     while (right >= left) {
         if (array[right] < array[pivot] && array[left] > array[pivot]) {
-            animations.push([SWAP_VALUE, left, array[right], right, array[left]]);
+            animations.push([animation_operations.SWAP_VALUE, left, array[right], right, array[left]]);
             [array[right], array[left]] = [array[left], array[right]];
         }
         if (array[right] >= array[pivot]) right--;
         if (array[left] <= array[pivot]) left++;
         if (right >= left) {
-            animations.push([CHANGE_COLOR, left, right]);
+            animations.push([animation_operations.CHANGE_COLOR, left, right]);
         }
     }
-    animations.push([CHANGE_COLOR, pivot, right]);
+    animations.push([animation_operations.CHANGE_COLOR, pivot, right]);
     if (pivot !== right) {
-        animations.push([SWAP_VALUE, right, array[pivot], pivot, array[right]]);
+        animations.push([animation_operations.SWAP_VALUE, right, array[pivot], pivot, array[right]]);
         [array[right], array[pivot]] = [array[pivot], array[right]];
     }
     quicksortHelper(array, start, right - 1, animations);

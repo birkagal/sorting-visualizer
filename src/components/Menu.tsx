@@ -6,7 +6,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { FaGithub } from 'react-icons/fa';
 import { generateArray, animateSort } from '../utils';
-import { consts } from '../consts';
+import { algorithms } from '../consts';
 import logo from '../assets/logo_32.png';
 import useWindowDimensions from '../hooks/useWindowDimensions';
 import { normalize } from '../utils';
@@ -17,8 +17,10 @@ interface IProps {
     setArray: React.Dispatch<React.SetStateAction<number[]>>;
 }
 
+const capitalize = (str: string) => str.charAt(0).toUpperCase() + str.slice(1);
+
 const Menu = (props: IProps) => {
-    const [algorithm, setAlgorithm] = useState(consts.MERGE_SORT);
+    const [algorithm, setAlgorithm] = useState(algorithms.MERGE_SORT);
     const [isSortingRunning, setIsSortingRunning] = useState(false);
     const [sizeInput, setSizeInput] = useState(50);
     const [expanded, setExpanded] = useState(false);
@@ -74,10 +76,9 @@ const Menu = (props: IProps) => {
                             disabled={isSortingRunning}
                             value={algorithm}
                             onChange={(e) => setAlgorithm(e.target.value)}>
-                            <option value={consts.MERGE_SORT}>{'Merge Sort'}</option>
-                            <option value={consts.BUBBLE_SORT}>{'Bubble Sort'}</option>
-                            <option value={consts.QUICK_SORT}>{'Quick Sort'}</option>
-                            <option value={consts.HEAP_SORT}>{'Heap Sort'}</option>
+                            {Object.values(algorithms).map((algo, index) => (
+                                <option key={index} value={algo}>{`${capitalize(algo)} Sort`}</option>
+                            ))}
                         </Form.Select>
                         <Button
                             style={{ width: '100%' }}

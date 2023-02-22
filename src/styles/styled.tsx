@@ -15,5 +15,3 @@ export const AppDiv = styled.div`
     overflow: hidden;
     text-align: center;
 `
-
-

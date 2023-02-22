@@ -1,11 +1,5 @@
 import styled from 'styled-components';
-import {
-    FaGithub, FaReact,
-} from 'react-icons/fa';
-import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
+import { FaReact, } from 'react-icons/fa';
 
 const FooterElement = styled.footer`
   position: absolute;

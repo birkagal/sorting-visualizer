@@ -1,6 +1,6 @@
 import { config } from './config';
 import { algoMap } from './algorithms';
-import { consts } from './consts';
+import { animation_operations } from './consts';
 
 export const animateSort = async (
     array: Array<number>,
@@ -14,7 +14,7 @@ export const animateSort = async (
         let state = animations[i].shift();
         let barOneIdx, barTwoIdx, barOne, barTwo, barOneNewHeight, barTwoNewHeight;
         switch (state) {
-            case consts.CHANGE_COLOR:
+            case animation_operations.CHANGE_COLOR:
                 [barOneIdx, barTwoIdx] = animations[i];
                 barOne = arrayBars[barOneIdx];
                 barTwo = arrayBars[barTwoIdx];
@@ -25,7 +25,7 @@ export const animateSort = async (
                 barOne.style.backgroundColor = config.primary_color;
                 barTwo.style.backgroundColor = config.primary_color;
                 break;
-            case consts.SWAP_VALUE:
+            case animation_operations.SWAP_VALUE:
                 await sleep(speed);
                 [barOneIdx, barOneNewHeight, barTwoIdx, barTwoNewHeight] = animations[i];
                 barOne = arrayBars[barOneIdx];
@@ -39,7 +39,7 @@ export const animateSort = async (
                 barOne.style.backgroundColor = config.primary_color;
                 barTwo.style.backgroundColor = config.primary_color;
                 break;
-            case consts.OVERWRITE_VALUE:
+            case animation_operations.OVERWRITE_VALUE:
                 await sleep(speed);
                 [barOneIdx, barOneNewHeight] = animations[i];
                 barOne = arrayBars[barOneIdx];
