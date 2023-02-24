@@ -11,4 +11,6 @@ export const algorithms = {
     HEAP_SORT: 'heap',
     INSERTION_SORT: 'insertion',
     SELECTION_SORT: 'selection',
+    SHAKER_SORT: 'shaker',
+    ODDEVEN_SORT: 'oddEven',
 }

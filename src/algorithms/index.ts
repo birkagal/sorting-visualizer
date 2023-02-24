@@ -4,6 +4,8 @@ import { quickSort } from "./quicksort";
 import { heapSort } from "./heap";
 import { insertionSort } from "./insertion";
 import { selectionSort } from "./selection";
+import { shakerSort } from "./shaker";
+import { oddEvenSort } from "./oddEven";
 
 export const algoMap = {
     merge: mergeSort,
@@ -12,4 +14,6 @@ export const algoMap = {
     heap: heapSort,
     insertion: insertionSort,
     selection: selectionSort,
+    shaker: shakerSort,
+    oddEven: oddEvenSort,
 }
