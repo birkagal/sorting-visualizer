@@ -1,6 +1,6 @@
 import { config } from './config';
 import { algoMap } from './algorithms';
-import { animation_operations } from './consts';
+import { ANIMATION_OPERATIONS } from './consts';
 
 export const animateSort = async (
     array: Array<number>,
@@ -14,7 +14,7 @@ export const animateSort = async (
         let state = animations[i].shift();
         let barOneIdx, barTwoIdx, barOne, barTwo, barOneNewHeight, barTwoNewHeight;
         switch (state) {
-            case animation_operations.CHANGE_COLOR:
+            case ANIMATION_OPERATIONS.CHANGE_COLOR:
                 [barOneIdx, barTwoIdx] = animations[i];
                 barOne = arrayBars[barOneIdx];
                 barTwo = arrayBars[barTwoIdx];
@@ -25,7 +25,7 @@ export const animateSort = async (
                 barOne.style.backgroundColor = config.primary_color;
                 barTwo.style.backgroundColor = config.primary_color;
                 break;
-            case animation_operations.SWAP_VALUE:
+            case ANIMATION_OPERATIONS.SWAP_VALUE:
                 await sleep(speed);
                 [barOneIdx, barOneNewHeight, barTwoIdx, barTwoNewHeight] = animations[i];
                 barOne = arrayBars[barOneIdx];
@@ -39,7 +39,7 @@ export const animateSort = async (
                 barOne.style.backgroundColor = config.primary_color;
                 barTwo.style.backgroundColor = config.primary_color;
                 break;
-            case animation_operations.OVERWRITE_VALUE:
+            case ANIMATION_OPERATIONS.OVERWRITE_VALUE:
                 await sleep(speed);
                 [barOneIdx, barOneNewHeight] = animations[i];
                 barOne = arrayBars[barOneIdx];
@@ -53,21 +53,29 @@ export const animateSort = async (
     }
 }
 
-export const generateArray = (length: number, max_value: number) => {
+export const generateArray = (
+    length: number,
+    max_value: number
+) => {
     let n = Math.floor(max_value / length);
     const array = Array.from({ length: length }, (_, index) => (n * index) + 25);
     const shuffledArray = array.sort(() => Math.random() - 0.5);
     return shuffledArray
 }
 
-// https://stackoverflow.com/a/7228322
-const randomIntFromInterval = (min: number, max: number) => {
-    return Math.floor(Math.random() * (max - min + 1) + min);
-}
 // https://stackoverflow.com/a/39914235
-const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+const sleep = (
+    ms: number
+) => new Promise((r) => setTimeout(r, ms));
 
-
-export const normalize = (val, minVal, maxVal, newMin, newMax) => {
+export const normalize = (
+    val: number,
+    minVal: number,
+    maxVal: number,
+    newMin: number,
+    newMax: number
+) => {
     return Math.floor(newMin + (val - minVal) * (newMax - newMin) / (maxVal - minVal));
 };
+
+export const capitalize = (str: string) => str.charAt(0).toUpperCase() + str.slice(1);

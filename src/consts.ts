@@ -1,16 +1,29 @@
-export const animation_operations = {
+export const ANIMATION_OPERATIONS = {
     CHANGE_COLOR: -1,
     SWAP_VALUE: -2,
     OVERWRITE_VALUE: -3,
 }
 
-export const algorithms = {
-    MERGE_SORT: 'merge',
-    BUBBLE_SORT: 'bubble',
-    QUICK_SORT: 'quick',
-    HEAP_SORT: 'heap',
-    INSERTION_SORT: 'insertion',
-    SELECTION_SORT: 'selection',
-    SHAKER_SORT: 'shaker',
-    ODDEVEN_SORT: 'oddEven',
+export const COLORS = {
+    PRIMARY: '#Dadee0',
+    SECONDARY: 'red',
+    SWAP: 'green',
 }
+
+export const ALGORITHMS = {
+    'logarithmic': {
+        MERGE: 'merge',
+        QUICK: 'quick',
+        HEAP: 'heap',
+    },
+    'quadratic': {
+        BUBBLE: 'bubble',
+        INSERTION: 'insertion',
+        SELECTION: 'selection',
+        SHAKER: 'shaker',
+        ODDEVEN: 'oddEven',
+    },
+    'weird': {},
+}
+
+export const DEFAULT_ALGORITHM = 'merge';

@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
-import { ArrayBar, ArrayContainer, AppDiv } from './styles/styled';
-import { config } from './config';
-import Menu from './components/Menu';
+import { Bar, ArrayContainer, AppDiv } from './styles/styled';
+import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-import useWindowDimensions from './hooks/useWindowDimensions';
+import { COLORS } from './consts';
 import { normalize } from './utils';
+import useWindowDimensions from './hooks/useWindowDimensions';
 
 const App = () => {
   const [array, setArray] = useState<Array<number>>([]);
@@ -23,21 +23,21 @@ const App = () => {
 
   return (
     <AppDiv>
-      <Menu {...{ array, setArray }} />
+      <Navbar {...{ array, setArray }} />
       <ArrayContainer>
         {array.map((value, idx) => (
-          <ArrayBar
+          <Bar
             className='array-bar'
             key={idx}
             style={{
               width: `${Math.floor(width / (array.length * 1.5))}px`,
-              backgroundColor: config.primary_color,
+              backgroundColor: COLORS.PRIMARY,
               height: `${value}px`,
               color: barWidth > 20 ? "black" : "transparent",
               fontSize: `${barFontSize}px`,
             }}>
             {value}
-          </ArrayBar>
+          </Bar>
         ))}
       </ArrayContainer>
       <Footer />

@@ -1,4 +1,4 @@
-import { animation_operations } from "../consts";
+import { ANIMATION_OPERATIONS } from "../consts";
 
 export const heapSort = (
     array: Array<number>
@@ -7,7 +7,7 @@ export const heapSort = (
     buildMaxHeap(array, animations);
     let end = array.length - 1;
     while (end > 0) {
-        animations.push([animation_operations.SWAP_VALUE, 0, array[end], end, array[0]]);
+        animations.push([ANIMATION_OPERATIONS.SWAP_VALUE, 0, array[end], end, array[0]]);
         [array[0], array[end]] = [array[end], array[0]];
         siftDown(array, 0, end, animations);
         end--;
@@ -38,9 +38,9 @@ const siftDown = (
         swap = 0;
     if (right) swap = array[left] > array[right] ? left : right;
     else swap = left;
-    animations.push([animation_operations.CHANGE_COLOR, start, swap]);
+    animations.push([ANIMATION_OPERATIONS.CHANGE_COLOR, start, swap]);
     if (array[start] < array[swap]) {
-        animations.push([animation_operations.SWAP_VALUE, swap, array[start], start, array[swap]]);
+        animations.push([ANIMATION_OPERATIONS.SWAP_VALUE, swap, array[start], start, array[swap]]);
         [array[start], array[swap]] = [array[swap], array[start]];
         siftDown(array, swap, end, animations);
     }

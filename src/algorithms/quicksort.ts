@@ -1,4 +1,4 @@
-import { animation_operations } from "../consts";
+import { ANIMATION_OPERATIONS } from "../consts";
 
 export const quickSort = (
     array: Array<number>
@@ -8,7 +8,7 @@ export const quickSort = (
     return animations;
 }
 
-export const quicksortHelper = (
+const quicksortHelper = (
     array: Array<number>,
     start: number,
     end: number,
@@ -18,21 +18,21 @@ export const quicksortHelper = (
     let pivot = start,
         left = start + 1,
         right = end;
-    animations.push([animation_operations.CHANGE_COLOR, left, right]);
+    animations.push([ANIMATION_OPERATIONS.CHANGE_COLOR, left, right]);
     while (right >= left) {
         if (array[right] < array[pivot] && array[left] > array[pivot]) {
-            animations.push([animation_operations.SWAP_VALUE, left, array[right], right, array[left]]);
+            animations.push([ANIMATION_OPERATIONS.SWAP_VALUE, left, array[right], right, array[left]]);
             [array[right], array[left]] = [array[left], array[right]];
         }
         if (array[right] >= array[pivot]) right--;
         if (array[left] <= array[pivot]) left++;
         if (right >= left) {
-            animations.push([animation_operations.CHANGE_COLOR, left, right]);
+            animations.push([ANIMATION_OPERATIONS.CHANGE_COLOR, left, right]);
         }
     }
-    animations.push([animation_operations.CHANGE_COLOR, pivot, right]);
+    animations.push([ANIMATION_OPERATIONS.CHANGE_COLOR, pivot, right]);
     if (pivot !== right) {
-        animations.push([animation_operations.SWAP_VALUE, right, array[pivot], pivot, array[right]]);
+        animations.push([ANIMATION_OPERATIONS.SWAP_VALUE, right, array[pivot], pivot, array[right]]);
         [array[right], array[pivot]] = [array[pivot], array[right]];
     }
     quicksortHelper(array, start, right - 1, animations);
